@@ -3,35 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Công cụ Quy đổi điểm THPT</title>
+    <title>Công cụ Tính điểm Tuyển sinh & Quy đổi</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <header>
-        <h1>Công cụ Quy đổi điểm THPT - from Trần Minh</h1>
+        <h1>Công cụ Tính điểm Tuyển sinh & Quy đổi - from Trần Minh 🗿</h1>
         <p>Liên hệ: <a href="https://www.facebook.com/meloncheo" target="_blank">facebook.com/meloncheo</a></p>
     </header>
 
     <main>
+        <!-- Phần tính điểm phức tạp (mới) -->
         <div class="calculator-section">
-            <h2>Quy đổi điểm của bạn</h2>
+            <h2>Tính điểm xét tuyển của bạn</h2>
+
             <div class="input-group">
-                <label for="scoreType">Loại điểm của bạn:</label>
-                <select id="scoreType">
+                <label for="monChinh">Điểm môn chính (nhân 2): <span class="highlight-text">(Tối đa 10)</span></label>
+                <input type="number" id="monChinh" step="0.01" min="0" max="10" required placeholder="Ví dụ: 8.5">
+            </div>
+            <div class="input-group">
+                <label for="monPhu1">Điểm môn phụ 1: <span class="highlight-text">(Tối đa 10)</span></label>
+                <input type="number" id="monPhu1" step="0.01" min="0" max="10" required placeholder="Ví dụ: 7.0">
+            </div>
+            <div class="input-group">
+                <label for="monPhu2">Điểm môn phụ 2: <span class="highlight-text">(Tối đa 10)</span></label>
+                <input type="number" id="monPhu2" step="0.01" min="0" max="10" required placeholder="Ví dụ: 9.2">
+            </div>
+
+            <h3>Điểm ưu tiên khu vực</h3>
+            <div class="radio-group">
+                <label><input type="radio" name="priorityArea" value="khuVuc2" checked> Khu vực 2 (+0.25)</label>
+                <label><input type="radio" name="priorityArea" value="khuVuc1"> Khu vực 1 (+0.75)</label>
+                <label><input type="radio" name="priorityArea" value="khuVuc2NongThon"> Khu vực 2 nông thôn (+0.5)</label>
+            </div>
+
+            <h3>Điểm cộng từ trường/giải thưởng/chứng chỉ</h3>
+            <div class="checkbox-group">
+                <label><input type="checkbox" id="truongChuyenNangKhieu"> Trường chuyên, năng khiếu (+1.0)</label>
+                <label><input type="checkbox" id="truongUuTien"> Trường ưu tiên (+0.8)</label>
+                <label><input type="checkbox" id="giaiHSGQuocGiaNhatNhiBa"> Giải HSG THPT/KHKT cấp Quốc gia (Nhất, Nhì, Ba) (+1.2)</label>
+                <label><input type="checkbox" id="giaiHSGQuocGiaKhuyenKhich"> Giải HSG THPT cấp Quốc gia (Khuyến khích) (+1.0)</label>
+                <label><input type="checkbox" id="giaiKHKTQuocGiaGiaiTu"> Giải KHKT cấp Quốc gia (Giải tư) (+1.0)</label>
+                <label><input type="checkbox" id="giaiHSGTinhNhat"> Giải HSG THPT cấp tỉnh/TP (Giải Nhất) (+0.8)</label>
+                <label><input type="checkbox" id="giaiHSGTinhNhi"> Giải HSG THPT cấp tỉnh/TP (Giải Nhì) (+0.7)</label>
+                <label><input type="checkbox" id="giaiHSGTinhBa"> Giải HSG THPT cấp tỉnh/TP (Giải Ba) (+0.6)</label>
+                <label><input type="checkbox" id="giaiKHKTTinhNhat"> Giải KHKT cấp tỉnh/TP (Giải Nhất) (+0.7)</label>
+                <label><input type="checkbox" id="giaiKHKTTinhNhi"> Giải KHKT cấp tỉnh/TP (Giải Nhì) (+0.6)</label>
+                <label><input type="checkbox" id="giaiKHKTTinhBa"> Giải KHKT cấp tỉnh/TP (Giải Ba) (+0.5)</label>
+            </div>
+
+            <h3>Ngành đào tạo tiếng Anh & IELTS</h3>
+            <div class="ielts-input-row">
+                <label for="isEnglishMajor">Bạn có học ngành đào tạo tiếng Anh không?</label>
+                <input type="checkbox" id="isEnglishMajor">
+                <div id="ieltsScoreContainer" class="ielts-score-container">
+                    <label for="ieltsScore">Điểm IELTS của bạn:</label>
+                    <input type="number" id="ieltsScore" step="0.5" min="0" max="9" placeholder="Ví dụ: 6.5">
+                    <small> (Điểm cộng dựa trên thang điểm TOEFL iBT tương ứng)</small>
+                </div>
+            </div>
+
+            <button id="calculateBtn">Tính điểm cuối cùng</button>
+
+            <div class="result-box" id="resultBox">
+                <!-- Kết quả sẽ hiển thị ở đây -->
+            </div>
+        </div>
+
+        <!-- Phần quy đổi điểm đơn giản (cũ) -->
+        <div class="calculator-section simple-converter-section">
+            <h2>Quy đổi điểm theo bảng THPT/ĐGNL</h2>
+            <div class="input-group">
+                <label for="simpleScoreType">Loại điểm của bạn:</label>
+                <select id="simpleScoreType">
                     <option value="hocba">Điểm học bạ / Kết quả học tập THPT</option>
                     <option value="dgnl">Điểm ĐGNL</option>
                 </select>
             </div>
             <div class="input-group">
-                <label for="yourScore">Nhập điểm của bạn ($x$):</label>
-                <input type="number" id="yourScore" step="0.01" min="0" required placeholder="Ví dụ: 27.54">
+                <label for="simpleYourScore">Nhập điểm của bạn ($x$):</label>
+                <input type="number" id="simpleYourScore" step="0.01" min="0" required placeholder="Ví dụ: 27.54">
             </div>
-            <button id="calculateBtn">Tính điểm quy đổi ($y$)</button>
-            <div class="result" id="result">
-                </div>
+            <button id="simpleCalculateBtn">Tính điểm quy đổi ($y$)</button>
+            <div class="result-box" id="simpleResultBox">
+                <!-- Kết quả sẽ hiển thị ở đây -->
+            </div>
         </div>
 
         <div class="table-section">
@@ -54,7 +115,8 @@
                     </tr>
                 </thead>
                 <tbody id="conversionTableBody">
-                    </tbody>
+                    <!-- Dữ liệu bảng sẽ được thêm bằng JavaScript -->
+                </tbody>
             </table>
         </div>
 
@@ -72,11 +134,21 @@
         </div>
     </main>
 
+    <!-- Dòng giải thích đã được di chuyển xuống đây -->
+    <p class="explanation-text footer-explanation">
+        Nếu điểm thi THPTQG của bạn là 25 (tổ hợp A00), và điểm học bạ 28,5 sau khi quy đổi A00 là 28,5.
+        Thì 28,5 (điểm học bạ) nó cao hơn 25 (điểm thi THPTQG) nên hệ thống sẽ chọn học bạ làm phương thức xét tuyển.
+        <br>
+        Trường hợp bạn không phải tổ hợp A00 thì, theo bảng dưới giả sử bạn thi C01 được 26 điểm thì chiếu qua 2 trục bạn -0,78 còn 25,22 A00.
+        Lúc này 25,22 vẫn thấp hơn 28,5 nên học bạ vẫn được chọn làm điểm để xét.
+    </p>
+
     <footer>
-        <p>&copy; 2024 Công cụ quy đổi điểm. Mọi quyền được bảo lưu.</p>
+        <p>&copy; 2025 Công cụ Tính điểm Tuyển sinh & Quy đổi. Mọi quyền được bảo lưu.</p>
     </footer>
 
     <script src="script.js"></script>
+    <!-- Thư viện MathJax để hiển thị công thức LaTeX đẹp mắt -->
     <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </body>
 </html>
