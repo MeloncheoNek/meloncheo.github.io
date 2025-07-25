@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Công cụ Quy đổi điểm THPT</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <h1>Công cụ Quy đổi điểm THPT - from Trần Minh</h1>
+        <p>Liên hệ: <a href="https://www.facebook.com/meloncheo" target="_blank">facebook.com/meloncheo</a></p>
+    </header>
+
+    <main>
+        <div class="calculator-section">
+            <h2>Quy đổi điểm của bạn</h2>
+            <div class="input-group">
+                <label for="scoreType">Loại điểm của bạn:</label>
+                <select id="scoreType">
+                    <option value="hocba">Điểm học bạ / Kết quả học tập THPT</option>
+                    <option value="dgnl">Điểm ĐGNL</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label for="yourScore">Nhập điểm của bạn ($x$):</label>
+                <input type="number" id="yourScore" step="0.01" min="0" required placeholder="Ví dụ: 27.54">
+            </div>
+            <button id="calculateBtn">Tính điểm quy đổi ($y$)</button>
+            <div class="result" id="result">
+                </div>
+        </div>
+
+        <div class="table-section">
+            <h2>Bảng quy đổi điểm tham khảo</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th rowspan="2">Khoảng</th>
+                        <th colspan="2">Điểm thi THPT</th>
+                        <th colspan="2">Kết quả học tập THPT</th>
+                        <th colspan="2">Điểm ĐGNL</th>
+                    </tr>
+                    <tr>
+                        <th>$c$</th>
+                        <th>$d$</th>
+                        <th>$a$</th>
+                        <th>$b$</th>
+                        <th>$a$</th>
+                        <th>$b$</th>
+                    </tr>
+                </thead>
+                <tbody id="conversionTableBody">
+                    </tbody>
+            </table>
+        </div>
+
+        <div class="formula-section">
+            <h2>Công thức quy đổi điểm:</h2>
+            <p class="formula-display">
+                $y = c + \frac{(x - a)}{(b - a)} \times (d - c)$
+            </p>
+            <ul>
+                <li>$x$: Điểm xét tuyển theo kết quả học tập THPT hoặc điểm ĐGNL của thí sinh.</li>
+                <li>$y$: Điểm quy đổi về điểm thi THPT.</li>
+                <li>$a, b$: Biên của khoảng điểm xét tuyển theo kết quả học tập THPT hoặc điểm ĐGNL ($a \le x \le b$).</li>
+                <li>$c, d$: Biên của khoảng điểm thi THPT tương ứng ($c \le y \le d$).</li>
+            </ul>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Công cụ quy đổi điểm. Mọi quyền được bảo lưu.</p>
+    </footer>
+
+    <script src="script.js"></script>
+    <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</body>
+</html>
